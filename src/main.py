@@ -79,7 +79,8 @@ def printing_status(secs_remaining):
         display.print(time_display + ';')
         display.show()
         time.sleep(0.5)
-        process_secs -= 1
+        if process_secs > 0:
+            process_secs -= 1
 
 
 

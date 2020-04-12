@@ -1,4 +1,5 @@
 # System Imports
+# import json
 import random
 
 # Framework / Library Imports
@@ -18,6 +19,10 @@ class Printer:
     def status(self):
         try:
             job_info = self.client.job_info()
+            # Can be used for testing
+            # with open('api_data.json') as json_file:
+            #     job_info = json.load(json_file)
+            #     print(job_info)
         except RuntimeError as re:
             return 'off'
 
@@ -38,6 +43,10 @@ class Printer:
     def remaining(self):
         try:
             job_info = self.client.job_info()
+            # Can be used for testing
+            # with open('api_data.json') as json_file:
+            #     job_info = json.load(json_file)
+            #     print(job_info)
         except RuntimeError as re:
             return 0
 
