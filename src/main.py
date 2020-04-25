@@ -17,6 +17,7 @@ from led_encoder import (
     encode
 )
 from octoprint.printer import Printer
+from utils import sec_to_mmss
 
 
 # Create the I2C interface.
@@ -61,26 +62,24 @@ def off_status():
     # display.marquee(' 0FF')
     display.show()
 
-def _sec_to_mmss(seconds):
-    m, s = divmod(seconds, 60)
-    # h, m = divmod(m, 60)
-    return '{:02d}{:02d}'.format(m, s) # Returns MMSS String
-    # return '{:02d}:{:02d}'.format(m, s) # Returns MM:SS String
-    # return (m, s) # Returns Tuple
-
 def printing_status(secs_remaining):
     display.fill(0)
     process_secs = secs_remaining
     while True:
-        time_display = _sec_to_mmss(process_secs)
-        display.print(time_display + ':')
-        display.show()
-        time.sleep(0.5)
-        display.print(time_display + ';')
-        display.show()
-        time.sleep(0.5)
-        if process_secs > 0:
-            process_secs -= 1
+        time_display = sec_to_mmss(process_secs)
+        if process_secs < 3600:
+            display.print(time_display + ':')
+            display.show()
+            time.sleep(0.5)
+            display.print(time_display + ';')
+            display.show()
+            time.sleep(0.5)
+            if process_secs > 0:
+                process_secs -= 1
+        else:
+            display.print(time_display + ':')
+            display.show()
+
 
 
 
@@ -152,6 +151,12 @@ try:
             display_proc.terminate()
             display_proc = False
         time.sleep(1)
+
+# except requests.exceptions.ConnectionError as conerr:
+#     print('Connection Error')
+#     if display_proc is not False and display_proc.is_alive():
+#         display_proc.terminate()
+#     display.print('E. 02')
 
 except KeyboardInterrupt:
     print('Quitting')
