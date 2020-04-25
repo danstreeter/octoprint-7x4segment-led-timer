@@ -1,5 +1,4 @@
-
-def encode(string):
+def chars_to_binary(chars):
     """
     takes in a 7 bit string of abcdefg
     where lower is off, upper is on
@@ -14,12 +13,16 @@ def encode(string):
 
     """
     enc_string = ''
-    for letter in string:
-        if letter.isupper():
+    for char in chars:
+        if char.isupper():
             enc_string += '1'
         else:
             enc_string += '0'
 
+    return enc_string
+
+def encode(string):
+    enc_string = chars_to_binary(string)
     return int('0' + ''.join(reversed(enc_string)), base=2)
 
 
