@@ -15,5 +15,5 @@ rpi-ws281x==4.2.3
 RPi.GPIO==0.7.0
 six==1.14.0
 sysv-ipc==1.0.1
-urllib3==1.25.8
+urllib3==1.26.5
 websocket-client==0.57.0
